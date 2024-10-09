@@ -1,7 +1,10 @@
 <template>
+    <div class="container"> 
+        <br><br><br>
+    <h1>รายการสินค้าทั้งหมด</h1>
     <section>
         <header class="blog-header">
-            <h2>ส่วนจัดการบล็อก</h2>
+            <h4>ค้นหา Gaming Mouse</h4>
             <div>
                 <form>
                     <input type="text" v-model="search" placeholder="Search" aria-label="Search Blogs" />
@@ -10,18 +13,20 @@
 
             <div>
                 <div class="blog-actions">
-                    <button @click="navigateTo('/blog/create')">Create Blog</button>
+                    <button @click="navigateTo('/blog/create')">เพิ่มสินค้า</button><br><br>
                     <ul class="categories">
+                        <br>
                         <li v-for="cate in category" :key="cate">
                             <a @click.prevent="setCategory(cate)" href="#">{{ cate }}</a>
                         </li>
                         <li class="clear">
                             <a @click.prevent="setCategory('')" href="#">Clear</a>
                         </li>
+                    </br>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
-                <strong>จำนวน blog: </strong> {{ filteredBlogs.length }}
+                <strong>จำนวน Gaming Mouse: </strong> {{ filteredBlogs.length }}
             </div>
             <br />
         </header>
@@ -58,6 +63,7 @@
             </article>
         </section>
     </section>
+    </div>
 </template>
   
 <script>
@@ -244,4 +250,13 @@ export default {
     margin-right: 20px;
     /* เพิ่มระยะห่างจากปุ่มกับหมวดหมู่ถ้าต้องการ */
 }
+
+h1 {
+  font-weight: bold; /* ทำให้ตัวหนาขึ้น */
+}
+
+h4 {
+  font-weight: bold; /* ทำให้ตัวหนาขึ้น */
+}
+
 </style>

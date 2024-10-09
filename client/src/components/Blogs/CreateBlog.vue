@@ -1,9 +1,12 @@
 <template>
-  <div>
-    <h1>Create Blog</h1>
+  <div class="container">
+    <br><br><br>
+    <h1>เพิ่มสินค้า</h1>
     <form v-on:submit.prevent="createBlog">
       <p>
-        title:
+        <strong>
+        รุ่นสินค้า :
+        </strong>
         <input type="text" v-model="blog.title" />
       </p>
       <transition name="fade">
@@ -52,7 +55,7 @@
         <div class="clearfix"></div>
       </div>
       <p>
-        <strong>content:</strong>
+        <strong>รายละเอียด :</strong>
       </p>
       <vue-ckeditor
         v-model.lazy="blog.content"
@@ -60,16 +63,23 @@
         @blur="onBlur($event)"
         @focus="onFocus($event)"
       />
+      <br>
       <p>
-        category:
+        <strong>
+        ยี่ห้อ :
+        </strong>
         <input type="text" v-model="blog.category" />
       </p>
       <p>
-        status:
+        <strong>
+        สถานะสินค้า :
+        </strong>
         <input type="text" v-model="blog.status" />
       </p>
+      
       <p>
-        <button type="submit">create blog</button>
+        <button type="submit">เพิ่มสินค้า</button>
+        <button v-on:click="navigateTo('/blogs')">กลับ</button>
       </p>
     </form>
   </div>
@@ -102,7 +112,7 @@ export default {
         pictures: "null",
         content: "",
         category: "",
-        status: "saved",
+        status: "พร้อมจำหน่าย",
       },
       config: {
         toolbar: [
@@ -391,5 +401,12 @@ ul.pictures li img {
 /* thumbnail */
 .thumbnail-pic img {
   width: 200px;
+}
+h1 {
+  font-weight: bold; /* ทำให้ตัวหนาขึ้น */
+}
+
+h4 {
+  font-weight: bold; /* ทำให้ตัวหนาขึ้น */
 }
 </style>

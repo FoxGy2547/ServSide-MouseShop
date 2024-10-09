@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <h1>Edit Blog</h1>
+  <div class="container">
+    <br><br><br>
+    <h1>แก้ไขสินค้า</h1>
     <form v-on:submit.prevent="editBlog">
-      <p>title: <input type="text" v-model="blog.title" /></p>
+      <p><strong>
+        รุ่นสินค้า :
+        </strong> <input type="text" v-model="blog.title" /></p>
       <transition name="fade">
         <div class="thumbnail-pic" v-if="blog.thumbnail != 'null'">
           <img :src="BASE_URL + blog.thumbnail" alt="thumbnail" />
@@ -46,15 +49,20 @@
         </li>
       </transition-group>
       <div class="clearfix"></div>
-      <p><strong>content:</strong></p>
+      <p><strong>รายละเอียด :</strong></p>
       <vue-ckeditor
         v-model.lazy="blog.content"
         :config="config"
         @blur="onBlur($event)"
         @focus="onFocus($event)"
       />
-      <p>category: <input type="text" v-model="blog.category" /></p>
-      <p>status: <input type="text" v-model="blog.status" /></p>
+      <br>
+      <p><strong>
+        ยี่ห้อ :
+        </strong> <input type="text" v-model="blog.category" /></p>
+      <p><strong>
+        สถานะสินค้า :
+        </strong> <input type="text" v-model="blog.status" /></p>
       <p>
         <button type="submit">update blog</button>
         <button v-on:click="navigateTo('/blogs')">กลับ</button>
@@ -396,5 +404,13 @@ ul.pictures li img {
 /* thumbnail */
 .thumbnail-pic img {
   width: 200px;
+}
+
+h1 {
+  font-weight: bold; /* ทำให้ตัวหนาขึ้น */
+}
+
+h4 {
+  font-weight: bold; /* ทำให้ตัวหนาขึ้น */
 }
 </style>
