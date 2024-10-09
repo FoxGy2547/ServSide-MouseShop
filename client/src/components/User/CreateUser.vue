@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="container">
+    <br><br><br>
     <h1>Create User</h1>
     <form v-on:submit.prevent = "createUser">
       <div>name: <input type="text" v-model="user.name"></div>

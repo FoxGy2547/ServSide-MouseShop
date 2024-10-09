@@ -5,29 +5,29 @@
     <section>
         <header class="blog-header">
             <h4>ค้นหา Gaming Mouse</h4>
-            <div>
-                <form>
-                    <input type="text" v-model="search" placeholder="Search" aria-label="Search Blogs" />
-                </form>
-            </div>
-
-            <div>
-                <div class="blog-actions">
-                    <button @click="navigateTo('/blog/create')">เพิ่มสินค้า</button><br><br>
-                    <ul class="categories">
-                        <br>
-                        <li v-for="cate in category" :key="cate">
-                            <a @click.prevent="setCategory(cate)" href="#">{{ cate }}</a>
-                        </li>
-                        <li class="clear">
-                            <a @click.prevent="setCategory('')" href="#">Clear</a>
-                        </li>
-                    </br>
-                    </ul>
+                <div> 
+                    <form style="display: flex; align-items: center;"> <!-- ใช้ Flexbox เพื่อจัดแนว -->
+                        <input type="text" v-model="search" placeholder="Search" aria-label="Search Blogs" />&nbsp;&nbsp;
+                        <ul class="categories" style="list-style: none; display: flex; margin: 0; padding: 0; align-items: center;">
+                            <li v-for="cate in category" :key="cate">
+                                <a @click.prevent="setCategory(cate)" href="#">{{ cate }}</a>
+                            </li>
+                            <li class="clear">
+                                <a @click.prevent="setCategory('')" href="#">Clear</a>
+                            </li>
+                        </ul>
+                    </form>
                 </div>
-                <div class="clearfix"></div>
-                <strong>จำนวน Gaming Mouse: </strong> {{ filteredBlogs.length }}
-            </div>
+                
+                <div>
+                    <div class="blog-actions">
+                        <button @click="navigateTo('/blog/create')" class="styled-button-green">เพิ่มสินค้า</button><br><br> <!-- ปุ่มเพิ่มสินค้า -->
+                    </div>
+                
+
+                    <div class="clearfix"></div>
+                    <strong>จำนวน Gaming Mouse: </strong> {{ filteredBlogs.length }}
+                </div>
             <br />
         </header>
 
@@ -48,15 +48,15 @@
                 </div>
 
                 <h3>รุ่น : {{ blog.title }}</h3>
-                <p><strong>ยี่ห้อ:</strong> {{ blog.category }}</p>
+                <p><strong>แบรนด์ :</strong> {{ blog.category }}</p>
                 <div class="blog-info">
                     <h3>รายละเอียด</h3>
-                    <div v-html="blog.content.slice(0, 200)"></div>
-                    <p><strong>ลงเมื่อ:</strong> {{ formatDate(blog.createdAt) }}</p>
+                    <div v-once v-html="blog.content.slice(0, 10000)"></div>
+                    <p><strong>ลงเมื่อ :</strong> {{ formatDate(blog.createdAt) }}</p>
                     <div class="blog-actions">
                         <button @click="navigateTo('/blog/' + blog.id)">ดูสินค้า</button>
-                        <button @click="navigateTo('/blog/edit/' + blog.id)">แก้ไขสินค้า</button>
-                        <button @click="deleteBlog(blog)">ลบข้อมูล</button>
+                        <button @click="navigateTo('/blog/edit/' + blog.id)" class="styled-button-blue">แก้ไขสินค้า</button>
+                        <button @click="deleteBlog(blog)" class="styled-button-red">ลบสินค้า</button>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -257,6 +257,63 @@ h1 {
 
 h4 {
   font-weight: bold; /* ทำให้ตัวหนาขึ้น */
+}
+
+.styled-button-green {
+            background-color: #4CAF50; /* สีพื้นหลัง */
+            color: white; /* สีตัวอักษร */
+            padding: 5px 20px; /* ระยะห่างภายใน */
+            text-align: center; /* จัดกึ่งกลางข้อความ */
+            text-decoration: none; /* ไม่มีเส้นใต้ */
+            display: inline-block; /* ให้แสดงเป็นบล็อก */
+            font-size: 14px; /* ขนาดตัวอักษร */
+            margin: 4px 2px; /* ระยะห่างรอบๆ ปุ่ม */
+            cursor: pointer; /* เปลี่ยนเป็นเคอร์เซอร์มือเมื่อชี้ */
+            border: none; /* ไม่มีกรอบ */
+            border-radius: 7px; /* ทำมุมโค้ง */
+            transition: background-color 0.3s; /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+}
+
+.styled-button-green:hover {
+            background-color: #45a049; /* เปลี่ยนสีเมื่อชี้ */
+}
+
+.styled-button-red {
+            background-color: #b33b3b; /* สีพื้นหลัง */
+            color: white; /* สีตัวอักษร */
+            padding: 5px 20px; /* ระยะห่างภายใน */
+            text-align: center; /* จัดกึ่งกลางข้อความ */
+            text-decoration: none; /* ไม่มีเส้นใต้ */
+            display: inline-block; /* ให้แสดงเป็นบล็อก */
+            font-size: 14px; /* ขนาดตัวอักษร */
+            margin: 4px 2px; /* ระยะห่างรอบๆ ปุ่ม */
+            cursor: pointer; /* เปลี่ยนเป็นเคอร์เซอร์มือเมื่อชี้ */
+            border: none; /* ไม่มีกรอบ */
+            border-radius: 7px; /* ทำมุมโค้ง */
+            transition: background-color 0.3s; /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+}
+
+.styled-button-red:hover {
+            background-color: #8a2525; /* เปลี่ยนสีเมื่อชี้ */
+}
+
+.styled-button-blue {
+            background-color: #1a7ad3; /* สีพื้นหลัง */
+            color: white; /* สีตัวอักษร */
+            padding: 5px 20px; /* ระยะห่างภายใน */
+            text-align: center; /* จัดกึ่งกลางข้อความ */
+            text-decoration: none; /* ไม่มีเส้นใต้ */
+            display: inline-block; /* ให้แสดงเป็นบล็อก */
+            font-size: 14px; /* ขนาดตัวอักษร */
+            margin: 4px 2px; /* ระยะห่างรอบๆ ปุ่ม */
+            cursor: pointer; /* เปลี่ยนเป็นเคอร์เซอร์มือเมื่อชี้ */
+            border: none; /* ไม่มีกรอบ */
+            border-radius: 7px; /* ทำมุมโค้ง */
+            transition: background-color 0.3s; /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+}
+
+.styled-button-blue:hover {
+            background-color: rgb(50, 91, 168); /* เปลี่ยนสีเมื่อชี้ */
 }
 
 </style>

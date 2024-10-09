@@ -58,7 +58,7 @@
       />
       <br>
       <p><strong>
-        ยี่ห้อ :
+        แบรนด์ :
         </strong> <input type="text" v-model="blog.category" /></p>
       <p><strong>
         สถานะสินค้า :

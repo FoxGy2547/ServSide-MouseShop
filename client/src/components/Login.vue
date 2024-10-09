@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <h1>User Login</h1>
+  <div class="container">
+    <br><br><br>
+    <h1>Login</h1>
     <form v-on:submit.prevent="onLogin">
       <div>
         <label for="email">Email</label>
