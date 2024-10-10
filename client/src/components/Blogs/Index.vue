@@ -54,8 +54,8 @@
                     <div v-once v-html="blog.content.slice(0, 10000)"></div>
                     <p><strong>ลงเมื่อ :</strong> {{ formatDate(blog.createdAt) }}</p>
                     <div class="blog-actions">
-                        <button @click="navigateTo('/blog/' + blog.id)">ดูสินค้า</button>
-                        <button @click="navigateTo('/blog/edit/' + blog.id)" class="styled-button-blue">แก้ไขสินค้า</button>
+                        <button @click="navigateTo('/blog/' + blog.id)" class="styled-button-blue">ดูสินค้า</button>
+                        <button @click="navigateTo('/blog/edit/' + blog.id)" class="styled-button-yellow">แก้ไขสินค้า</button>
                         <button @click="deleteBlog(blog)" class="styled-button-red">ลบสินค้า</button>
                     </div>
                 </div>
@@ -226,13 +226,13 @@ export default {
 
 .categories li a {
     padding: 5px 10px;
-    background: paleturquoise;
+    background: #72ecff;
     color: black;
     text-decoration: none;
 }
 
 .categories li.clear a {
-    background: tomato;
+    background: #ff4a8f;
     color: white;
 }
 
@@ -314,6 +314,25 @@ h4 {
 
 .styled-button-blue:hover {
             background-color: rgb(50, 91, 168); /* เปลี่ยนสีเมื่อชี้ */
+}
+
+.styled-button-yellow {
+            background-color: #ffe604; /* สีพื้นหลัง */
+            color: rgb(0, 0, 0); /* สีตัวอักษร */
+            padding: 5px 20px; /* ระยะห่างภายใน */
+            text-align: center; /* จัดกึ่งกลางข้อความ */
+            text-decoration: none; /* ไม่มีเส้นใต้ */
+            display: inline-block; /* ให้แสดงเป็นบล็อก */
+            font-size: 14px; /* ขนาดตัวอักษร */
+            margin: 4px 2px; /* ระยะห่างรอบๆ ปุ่ม */
+            cursor: pointer; /* เปลี่ยนเป็นเคอร์เซอร์มือเมื่อชี้ */
+            border: none; /* ไม่มีกรอบ */
+            border-radius: 7px; /* ทำมุมโค้ง */
+            transition: background-color 0.3s; /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+}
+
+.styled-button-yellow:hover {
+            background-color: rgb(192, 175, 25); /* เปลี่ยนสีเมื่อชี้ */
 }
 
 </style>
