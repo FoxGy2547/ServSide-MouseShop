@@ -53,6 +53,7 @@
                     <h3>รายละเอียด</h3>
                     <div v-once v-html="blog.content.slice(0, 10000)"></div>
                     <p><strong>ลงเมื่อ :</strong> {{ formatDate(blog.createdAt) }}</p>
+                    <p><strong>สถานะสินค้า :</strong> {{ blog.status }}</p>
                     <div class="blog-actions">
                         <button @click="navigateTo('/blog/' + blog.id)" class="styled-button-blue">ดูสินค้า</button>
                         <button @click="navigateTo('/blog/edit/' + blog.id)" class="styled-button-yellow">แก้ไขสินค้า</button>

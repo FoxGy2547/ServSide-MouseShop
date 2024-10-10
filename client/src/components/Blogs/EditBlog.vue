@@ -64,7 +64,7 @@
         สถานะสินค้า :
         </strong> <input type="text" v-model="blog.status" /></p>
       <p>
-        <button type="submit" class="styled-button-green">แก้ไขสินค้า</button>
+        <button type="submit" class="styled-button-green">ยืนยันการแก้ไขสินค้า</button>
         <button v-on:click="navigateTo('/blogs')" class="styled-button-red">กลับ</button>
       </p>
     </form>
