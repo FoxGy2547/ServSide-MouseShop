@@ -490,4 +490,12 @@ h4 {
             background-color: rgb(192, 175, 25); /* เปลี่ยนสีเมื่อชี้ */
 }
 
+input[type="text"] {
+    width: 200px; /* ปรับขนาดความกว้างของช่องค้นหา */
+    padding: 5px; /* เพิ่มระยะห่างภายใน */
+    border: 1px solid #ccc; /* กำหนดสีกรอบ */
+    border-radius: 5px; /* ทำมุมโค้ง */
+    box-sizing: border-box; /* ใช้เพื่อให้คำนวณขนาดได้ถูกต้อง */
+    font-size: 14px; /* ขนาดตัวอักษร */
+}
 </style>
