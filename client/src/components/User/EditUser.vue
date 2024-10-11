@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <h1><strong>Edit User</strong></h1>
+      <h1><strong>แก้ไขบัญชี</strong></h1>
       <form v-on:submit.prevent="editUser">
         <div class="input-group">
           <label for="name">Name</label>
@@ -19,7 +19,8 @@
           <label for="password">Password</label>
           <input type="password" id="password" v-model="user.password" required />
         </div>
-        <button type="submit" class="styled-button-white">Edit User</button>
+        <button type="submit" class="styled-button-yellow">แก้ไขข้อมูล</button>
+        <button v-on:click="navigateTo('/users')" type="button" class="styled-button-red">กลับ</button>
       </form>
     </div>
   </div>
@@ -55,12 +56,57 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    navigateTo(path) {
+      this.$router.push(path); // ใช้ Vue Router เพื่อเปลี่ยนเส้นทาง
     }
   }
 }
 </script>
 
 <style scoped>
+.styled-button-yellow:hover {
+            background-color: rgb(192, 175, 25); /* เปลี่ยนสีเมื่อชี้ */
+}
+
+.styled-button-yellow {
+            background-color: #ffe604; /* สีพื้นหลัง */
+            color: rgb(0, 0, 0); /* สีตัวอักษร */
+            padding: 5px 20px; /* ระยะห่างภายใน */
+            text-align: center; /* จัดกึ่งกลางข้อความ */
+            text-decoration: none; /* ไม่มีเส้นใต้ */
+            display: inline-block; /* ให้แสดงเป็นบล็อก */
+            font-size: 14px; /* ขนาดตัวอักษร */
+            margin: 4px 2px; /* ระยะห่างรอบๆ ปุ่ม */
+            cursor: pointer; /* เปลี่ยนเป็นเคอร์เซอร์มือเมื่อชี้ */
+            border: none; /* ไม่มีกรอบ */
+            border-radius: 7px; /* ทำมุมโค้ง */
+            transition: background-color 0.3s; /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+}
+
+.styled-button-yellow:hover {
+            background-color: rgb(192, 175, 25); /* เปลี่ยนสีเมื่อชี้ */
+}
+
+.styled-button-red {
+            background-color: #b33b3b; /* สีพื้นหลัง */
+            color: white; /* สีตัวอักษร */
+            padding: 5px 20px; /* ระยะห่างภายใน */
+            text-align: center; /* จัดกึ่งกลางข้อความ */
+            text-decoration: none; /* ไม่มีเส้นใต้ */
+            display: inline-block; /* ให้แสดงเป็นบล็อก */
+            font-size: 14px; /* ขนาดตัวอักษร */
+            margin: 4px 2px; /* ระยะห่างรอบๆ ปุ่ม */
+            cursor: pointer; /* เปลี่ยนเป็นเคอร์เซอร์มือเมื่อชี้ */
+            border: none; /* ไม่มีกรอบ */
+            border-radius: 7px; /* ทำมุมโค้ง */
+            transition: background-color 0.3s; /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+}
+
+.styled-button-red:hover {
+            background-color: #8a2525; /* เปลี่ยนสีเมื่อชี้ */
+}
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -102,25 +148,5 @@ input {
   border-radius: 5px;
   box-sizing: border-box;
   font-size: 16px;
-}
-
-.styled-button-white {
-  width: 100%;
-  background-color: #4CAF50; /* สีพื้นหลัง */
-  color: white; /* สีตัวอักษร */
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 10px 0;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.styled-button-white:hover {
-  background-color: #45a049;
 }
 </style>

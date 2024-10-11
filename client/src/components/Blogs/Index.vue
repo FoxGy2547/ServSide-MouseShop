@@ -7,7 +7,7 @@
             <h4>ค้นหา Gaming Mouse</h4>
                 <div> 
                     <form style="display: flex; align-items: center;"> <!-- ใช้ Flexbox เพื่อจัดแนว -->
-                        <input type="text" v-model="search" placeholder="Search" aria-label="Search Blogs" />&nbsp;&nbsp;
+                        <input type="text" v-model="search" placeholder="Search" aria-label="Search Blogs" style="width: 200px; padding: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px;" />&nbsp;&nbsp;
                         <ul class="categories" style="list-style: none; display: flex; margin: 0; padding: 0; align-items: center;">
                             <li v-for="cate in brand" :key="cate">
                                 <a @click.prevent="setbrand(cate)" href="#">{{ cate }}</a>
@@ -18,6 +18,7 @@
                         </ul>
                     </form>
                 </div>
+
                 
                 <div>
                     <div class="blog-actions">
@@ -365,4 +366,12 @@ h1 {
     border: 1px solid #ccc; /* ขอบของช่องสี */
 }
 
+input[type="text"] {
+    width: 200px; /* ปรับขนาดความกว้างของช่องค้นหา */
+    padding: 5px; /* เพิ่มระยะห่างภายใน */
+    border: 1px solid #ccc; /* กำหนดสีกรอบ */
+    border-radius: 5px; /* ทำมุมโค้ง */
+    box-sizing: border-box; /* ใช้เพื่อให้คำนวณขนาดได้ถูกต้อง */
+    font-size: 14px; /* ขนาดตัวอักษร */
+}
 </style>
