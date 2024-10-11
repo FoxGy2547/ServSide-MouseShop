@@ -5,7 +5,7 @@
     <form v-on:submit.prevent="editBlog">
       <p><strong>
         รุ่นสินค้า :
-        </strong> <input type="text" v-model="blog.title" /></p>
+        </strong> <input type="text" v-model="blog.model" /></p>
       <transition name="fade">
         <div class="thumbnail-pic" v-if="blog.thumbnail != 'null'">
           <img :src="BASE_URL + blog.thumbnail" alt="thumbnail" />
@@ -94,7 +94,7 @@ export default {
       pictures: [],
       pictureIndex: 0,
       blog: {
-        title: "",
+        model: "",
         thumbnail: "null",
         pictures: "null",
         content: "",

@@ -9,11 +9,11 @@
                     <form style="display: flex; align-items: center;"> <!-- ใช้ Flexbox เพื่อจัดแนว -->
                         <input type="text" v-model="search" placeholder="Search" aria-label="Search Blogs" />&nbsp;&nbsp;
                         <ul class="categories" style="list-style: none; display: flex; margin: 0; padding: 0; align-items: center;">
-                            <li v-for="cate in category" :key="cate">
-                                <a @click.prevent="setCategory(cate)" href="#">{{ cate }}</a>
+                            <li v-for="cate in brand" :key="cate">
+                                <a @click.prevent="setbrand(cate)" href="#">{{ cate }}</a>
                             </li>
                             <li class="clear">
-                                <a @click.prevent="setCategory('')" href="#">Clear</a>
+                                <a @click.prevent="setbrand('')" href="#">Clear</a>
                             </li>
                         </ul>
                     </form>
@@ -47,9 +47,13 @@
                     </transition>
                 </div>
 
-                <h3>รุ่น : {{ blog.title }}</h3>
-                <p><strong>แบรนด์ :</strong> {{ blog.category }}</p>
                 <div class="blog-info">
+                    <h2>รุ่น : {{ blog.model }}</h2>
+                    <h4><strong>แบรนด์ : </strong>{{ blog.brand }}</h4>
+                    <div class="color-squares">
+                        <strong>สี :&nbsp;</strong>
+                        <span v-for="color in JSON.parse(blog.colors)" :key="color" class="color-square" :style="{ backgroundColor: color }"></span>
+                    </div>
                     <h3>รายละเอียด</h3>
                     <div v-once v-html="blog.content.slice(0, 10000)"></div>
                     <p><strong>ลงเมื่อ :</strong> {{ formatDate(blog.createdAt) }}</p>
@@ -79,12 +83,12 @@ export default {
             blogs: [],
             search: '',
             BASE_URL: 'http://localhost:8081/assets/uploads/',
-            LOAD_NUM: 3,
+            LOAD_NUM: 10000,
             pageWatcher: null,
             allBlogs: [],
             currentPage: 1,
             results: [],
-            category: [],
+            brand: [],
             loading: false,
         };
     },
@@ -95,8 +99,8 @@ export default {
         filteredBlogs() {
             if (this.search) {
                 return this.allBlogs.filter((blog) =>
-                    blog.title.toLowerCase().includes(this.search.toLowerCase()) ||
-                    blog.category.toLowerCase().includes(this.search.toLowerCase())
+                    blog.model.toLowerCase().includes(this.search.toLowerCase()) ||
+                    blog.brand.toLowerCase().includes(this.search.toLowerCase())
                 );
             }
             return this.allBlogs;
@@ -142,13 +146,13 @@ export default {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             return new Date(dateString).toLocaleDateString('th-TH', options);
         },
-        setCategory(keyword) {
+        setbrand(keyword) {
             this.search = keyword.trim();
         },
         populateCategories() {
             this.allBlogs.forEach(blog => {
-                if (!this.category.includes(blog.category)) {
-                    this.category.push(blog.category);
+                if (!this.brand.includes(blog.brand)) {
+                    this.brand.push(blog.brand);
                 }
             });
         },
@@ -204,7 +208,24 @@ export default {
     margin: 10px auto;
     padding: 10px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    display: flex; /* ใช้ Flexbox สำหรับจัดเรียง */
 }
+
+.blog-pic {
+    flex: 1; /* ให้รูปภาพใช้พื้นที่ 1 ส่วน */
+    margin-right: 20px; /* เพิ่มระยะห่างระหว่างรูปภาพกับข้อความ */
+}
+
+.blog-info {
+    flex: 2; /* ให้ข้อมูลใช้พื้นที่ 2 ส่วน */
+}
+
+.thumbnail-pic img {
+    width: 100%; /* ให้ภาพขยายเต็มพื้นที่ของ .blog-pic */
+    max-width: 300px; /* จำกัดขนาดสูงสุด */
+    height: auto; /* เพื่อรักษาสัดส่วนของภาพ */
+}
+
 
 #blog-list-bottom {
     padding: 30px;
@@ -253,10 +274,6 @@ export default {
 }
 
 h1 {
-  font-weight: bold; /* ทำให้ตัวหนาขึ้น */
-}
-
-h4 {
   font-weight: bold; /* ทำให้ตัวหนาขึ้น */
 }
 
@@ -334,6 +351,18 @@ h4 {
 
 .styled-button-yellow:hover {
             background-color: rgb(192, 175, 25); /* เปลี่ยนสีเมื่อชี้ */
+}
+
+.color-squares {
+    display: flex;
+    margin-top: 5px;
+}
+
+.color-square {
+    width: 20px; /* กำหนดความกว้างของช่องสี */
+    height: 20px; /* กำหนดความสูงของช่องสี */
+    margin-right: 5px; /* ระยะห่างระหว่างช่องสี */
+    border: 1px solid #ccc; /* ขอบของช่องสี */
 }
 
 </style>

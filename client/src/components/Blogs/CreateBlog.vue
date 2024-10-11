@@ -7,8 +7,9 @@
         <strong>
         รุ่นสินค้า :
         </strong>
-        <input type="text" v-model="blog.title" />
+        <input type="text" v-model="blog.model" />
       </p>
+
       <transition name="fade">
         <div class="thumbnail-pic" v-if="blog.thumbnail != 'null'">
           <img :src="BASE_URL + blog.thumbnail" alt="thumbnail" />
@@ -41,10 +42,7 @@
         <transition-group tag="ul" class="pictures">
           <li v-for="picture in pictures" v-bind:key="picture.id">
             <img
-              style="margin-bottom: 5px"
-              :src="BASE_URL + picture.name"
-              alt="picture image"
-            />
+              style="margin-bottom: 5px" :src="BASE_URL + picture.name" alt="picture image"/>
             <br />
             <button v-on:click.prevent="useThumbnail(picture.name)" class="styled-button-yellow">
               ปกสินค้า
@@ -64,11 +62,57 @@
         @focus="onFocus($event)"
       />
       <br>
+      <div class="color-container" style="display: flex; align-items: center;">
+        <strong class="color-label">เลือกสี :</strong>
+        <div class="color-checkbox" style="display: flex; gap: 10px; margin-left: 10px;">
+          <label>
+            <input type="checkbox" value="#FFFFFF" style="accent-color: white;" v-on:change="updateColors">
+            <div class="color-button" style="background-color: #FFFFFF; width: 30px; height: 30px; border: 1px solid #ccc;"></div> <!-- ขาว -->
+          </label>
+          <label>
+            <input type="checkbox" value="#000000" style="accent-color: black;" v-on:change="updateColors">
+            <div class="color-button" style="background-color: #000000; width: 30px; height: 30px; border: 1px solid #ccc;"></div> <!-- ดำ -->
+          </label>
+          <label>
+            <input type="checkbox" value="#A9A9A9" style="accent-color: gray;" v-on:change="updateColors">
+            <div class="color-button" style="background-color: #A9A9A9; width: 30px; height: 30px; border: 1px solid #ccc;"></div> <!-- เทา -->
+          </label>
+          <label>
+            <input type="checkbox" value="#ff70a6" style="accent-color: red;" v-on:change="updateColors">
+            <div class="color-button" style="background-color: #ff70a6; width: 30px; height: 30px; border: 1px solid #ccc;"></div> <!-- ชมพู -->
+          </label>
+          <label>
+            <input type="checkbox" value="#bdb2ff" style="accent-color: magenta;" v-on:change="updateColors">
+            <div class="color-button" style="background-color: #bdb2ff; width: 30px; height: 30px; border: 1px solid #ccc;"></div> <!-- ม่วง -->
+          </label>
+          <label>
+            <input type="checkbox" value="#87CEFA" style="accent-color: cyan;" v-on:change="updateColors">
+            <div class="color-button" style="background-color: #87CEFA; width: 30px; height: 30px; border: 1px solid #ccc;"></div> <!-- ฟ้า -->
+          </label>
+          <label>
+            <input type="checkbox" value="#32CD32" style="accent-color: green;" v-on:change="updateColors">
+            <div class="color-button" style="background-color: #32CD32; width: 30px; height: 30px; border: 1px solid #ccc;"></div> <!-- เขียว -->
+          </label>
+          <label>
+            <input type="checkbox" value="#FFD700" style="accent-color: yellow;" v-on:change="updateColors">
+            <div class="color-button" style="background-color: #FFD700; width: 30px; height: 30px; border: 1px solid #ccc;"></div> <!-- เหลือง -->
+          </label>
+          <label>
+            <input type="checkbox" value="#ff9770" style="accent-color: orange;" v-on:change="updateColors">
+            <div class="color-button" style="background-color: #ff9770; width: 30px; height: 30px; border: 1px solid #ccc;"></div> <!-- ส้ม -->
+          </label>
+          <label>
+            <input type="checkbox" value="#f21b3f" style="accent-color: red;" v-on:change="updateColors">
+            <div class="color-button" style="background-color: #f21b3f; width: 30px; height: 30px; border: 1px solid #ccc;"></div> <!-- แดง -->
+          </label>
+        </div>
+      </div>
+      <br>
       <p>
         <strong>
           แบรนด์ :
         </strong>
-        <input type="text" v-model="blog.category" />
+        <input type="text" v-model="blog.brand" />
       </p>
       <p>
         <strong>
@@ -107,12 +151,13 @@ export default {
       pictures: [],
       pictureIndex: 0,
       blog: {
-        title: "",
+        model: "",
         thumbnail: "null",
         pictures: "null",
         content: "",
-        category: "",
+        brand: "",
         status: "พร้อมจำหน่าย",
+        colors: [], // เปลี่ยนเป็นอาเรย์
       },
       config: {
         toolbar: [
@@ -142,6 +187,7 @@ export default {
     },
     async createBlog() {
       this.blog.pictures = JSON.stringify(this.pictures);
+      this.blog.colors = JSON.stringify(this.blog.colors); // แปลงเป็น JSON
       console.log("JSON.stringify: ", this.blog);
       try {
         await BlogsService.post(this.blog);
@@ -152,6 +198,7 @@ export default {
         console.log(err);
       }
     },
+
     onBlur(editor) {
       console.log(editor);
     },
@@ -224,6 +271,15 @@ export default {
     useThumbnail(filename) {
       console.log(filename);
       this.blog.thumbnail = filename;
+    },
+    updateColors(event) {
+      const color = event.target.value;
+      const index = this.blog.colors.indexOf(color);
+      if (index === -1) {
+        this.blog.colors.push(color); // ถ้ายังไม่มีสีในอาเรย์ ก็เพิ่มเข้าไป
+      } else {
+        this.blog.colors.splice(index, 1); // ถ้ามีสีในอาเรย์แล้ว ก็ลบออก
+      }
     },
   },
   computed: {
@@ -485,4 +541,51 @@ h4 {
 .styled-button-yellow:hover {
             background-color: rgb(192, 175, 25); /* เปลี่ยนสีเมื่อชี้ */
 }
+
+.color-button {
+    width: 30px; /* ขนาดของปุ่มสี */
+    height: 30px;
+    border: 2px solid transparent; /* กรอบเริ่มต้น */
+    cursor: pointer; /* เปลี่ยนเคอร์เซอร์ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* เพื่อให้สามารถจัดการตำแหน่งของเครื่องหมายติ๊กถูกได้ */
+}
+
+/* ซ่อน checkbox */
+input[type="checkbox"] {
+    display: none; 
+}
+
+/* กรอบปกติที่แสดงอยู่เสมอ */
+.color-button {
+    border: 2px solid #000; /* กรอบสีดำ */
+}
+
+/* กรอบเมื่อถูกเลือก */
+input[type="checkbox"]:checked + .color-button {
+    border: 2px solid #000; /* กรอบยังคงเป็นสีดำ */
+}
+
+/* เครื่องหมายติ๊กถูก */
+input[type="checkbox"]:checked + .color-button::after {
+    content: '✔'; /* เครื่องหมายติ๊กถูก */
+    color: white; /* สีของเครื่องหมายติ๊กถูก */
+    font-size: 18px; /* ขนาดของเครื่องหมายติ๊กถูก */
+    position: absolute; /* ให้เครื่องหมายติ๊กถูกอยู่ในตำแหน่งที่ถูกต้อง */
+}
+
+/* กรอบพิเศษสำหรับสีขาว */
+input[type="checkbox"][value="#FFFFFF"]:checked + .color-button {
+    border: 2px solid #000; /* กรอบยังคงเป็นสีดำ */
+    background-color: #FFFFFF; /* สีพื้นหลังเป็นสีขาว */
+}
+
+/* เครื่องหมายติ๊กถูกที่มองเห็นได้ในสีขาว */
+input[type="checkbox"][value="#FFFFFF"]:checked + .color-button::after {
+    content: '✔'; /* เครื่องหมายติ๊กถูก */
+    color: black; /* เปลี่ยนเป็นสีดำเพื่อให้มองเห็นได้ชัดเจน */
+}
+
 </style>

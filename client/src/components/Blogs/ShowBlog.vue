@@ -1,10 +1,14 @@
 <template>
     <div class="container">
         <br><br><br>
-        <h3><strong>แบรนด์ :</strong> {{ blog.category }}</h3>
-        <h3><strong>รุ่น</strong> : {{ blog.title }}</h3>
+        <h3><strong>แบรนด์ :</strong> {{ blog.brand }}</h3>
+        <h3><strong>รุ่น</strong> : {{ blog.model }}</h3>
         <div v-if="blog.thumbnail && blog.thumbnail !== 'null'" class="thumbnail-pic">
             <img :src="BASE_URL + blog.thumbnail" alt="Blog Thumbnail" width="20%"/>
+        </div>
+        <div class="color-squares">
+            <strong>สี :&nbsp;</strong>
+            <span v-for="color in JSON.parse(blog.colors)" :key="color" class="color-square" :style="{ backgroundColor: color }"></span>
         </div>
         <h3><strong>รายละเอียด</strong></h3>
         <div v-once v-html="blog.content.slice(0, 10000)"></div>
@@ -29,7 +33,7 @@
                 allBlogs: [],
                 currentPage: 1,
                 results: [],
-                category: [],
+                brand: [],
                 loading: false,
                 blog: null
             };
@@ -125,5 +129,17 @@
 
 .styled-button-yellow:hover {
             background-color: rgb(192, 175, 25); /* เปลี่ยนสีเมื่อชี้ */
+}
+
+.color-squares {
+    display: flex;
+    margin-top: 5px;
+}
+
+.color-square {
+    width: 20px; /* กำหนดความกว้างของช่องสี */
+    height: 20px; /* กำหนดความสูงของช่องสี */
+    margin-right: 5px; /* ระยะห่างระหว่างช่องสี */
+    border: 1px solid #ccc; /* ขอบของช่องสี */
 }
 </style>
